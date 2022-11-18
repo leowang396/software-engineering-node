@@ -20,13 +20,39 @@ const BookmarkDao_1 = __importDefault(require("./daos/BookmarkDao"));
 const BookmarkController_1 = __importDefault(require("./controllers/BookmarkController"));
 const MessageDao_1 = __importDefault(require("./daos/MessageDao"));
 const MessageController_1 = __importDefault(require("./controllers/MessageController"));
+const AuthController_1 = __importDefault(require("./controllers/AuthController"));
+const session = require('express-session');
 const cors = require('cors');
 const app = (0, express_1.default)();
-app.use(cors());
+// Sets the Access-Control-Allow-Origin response header to the req origin.
+const corsConfig = {
+    credentials: true,
+    origin: true,
+};
+app.use(cors(corsConfig));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
+// Creates the session middleware.
+let sess = {
+    secret: 'keyboard cat',
+    cookie: {
+        secure: false
+    }
+};
+// let sess = {
+//     secret: process.env.SECRET,
+//     cookie: {
+//         secure: false
+//     }
+// }
+if (process.env.ENV == 'PRODUCTION') {
+    app.set('trust proxy', 1);
+    sess.cookie.secure = true;
+}
+app.use(session(sess));
 app.get('/', (req, res) => res.send('<h1>App Loaded!</h1>'));
-const uri = `mongodb+srv://lwang369:${process.env.mongodbpw}@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
+//${process.env.mongodbpw}
+const uri = `mongodb+srv://lwang369:Ec7Qr83mvoCUDzsG@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
 mongoose_1.default.connect(uri);
 const userDao = UserDao_1.default.getInstance();
 const userController = UserController_1.default.getInstance(app);
@@ -40,8 +66,9 @@ const bookmarkDao = BookmarkDao_1.default.getInstance();
 const bookmarkController = BookmarkController_1.default.getInstance(app);
 const messageDao = MessageDao_1.default.getInstance();
 const messageController = MessageController_1.default.getInstance(app);
+const authController = (0, AuthController_1.default)(app);
 /**
- * Start a server listening at port 3000 locally
+ * Start a server listening at port 4000 locally
  * but use environment variable PORT on AWS Elastic Beanstalk if available.
  */
 const PORT = 4000;

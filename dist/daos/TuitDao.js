@@ -34,16 +34,16 @@ class TuitDao {
                 .populate("postedBy")
                 .exec();
         });
-        this.findTuitById = (uid) => __awaiter(this, void 0, void 0, function* () {
-            return TuitModel_1.default.findById(uid)
+        this.findTuitById = (tid) => __awaiter(this, void 0, void 0, function* () {
+            return TuitModel_1.default.findById(tid)
                 .populate("postedBy")
                 .exec();
         });
         this.createTuitByUser = (uid, tuit) => __awaiter(this, void 0, void 0, function* () { return TuitModel_1.default.create(Object.assign(Object.assign({}, tuit), { postedBy: uid })); });
-        this.updateTuit = (uid, tuit) => __awaiter(this, void 0, void 0, function* () {
-            return TuitModel_1.default.updateOne({ _id: uid }, { $set: tuit });
+        this.updateTuit = (tid, tuit) => __awaiter(this, void 0, void 0, function* () {
+            return TuitModel_1.default.updateOne({ _id: tid }, { $set: tuit });
         });
-        this.deleteTuit = (uid) => __awaiter(this, void 0, void 0, function* () { return TuitModel_1.default.deleteOne({ _id: uid }); });
+        this.deleteTuit = (tid) => __awaiter(this, void 0, void 0, function* () { return TuitModel_1.default.deleteOne({ _id: tid }); });
     }
 }
 exports.default = TuitDao;

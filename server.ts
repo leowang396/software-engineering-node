@@ -51,8 +51,8 @@ app.use(session(sess));
 app.get('/', (req: Request, res: Response) =>
     res.send('<h1>App Loaded!</h1>'));
 // TODO: Configure MongoDB Atlas connection for production.
-//${process.env.mongodbpw}
-const uri = `mongodb+srv://lwang369:Ec7Qr83mvoCUDzsG@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
+//$
+const uri = `mongodb+srv://lwang369:{process.env.mongodbpw}@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(uri);
 
 const userDao = UserDao.getInstance();

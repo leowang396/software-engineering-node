@@ -39,6 +39,7 @@ let sess = {
         secure: false
     }
 };
+// TODO: Configure express-session for production.
 // let sess = {
 //     secret: process.env.SECRET,
 //     cookie: {
@@ -51,6 +52,7 @@ if (process.env.ENV == 'PRODUCTION') {
 }
 app.use(session(sess));
 app.get('/', (req, res) => res.send('<h1>App Loaded!</h1>'));
+// TODO: Configure MongoDB Atlas connection for production.
 //${process.env.mongodbpw}
 const uri = `mongodb+srv://lwang369:Ec7Qr83mvoCUDzsG@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
 mongoose_1.default.connect(uri);
@@ -71,6 +73,7 @@ const authController = (0, AuthController_1.default)(app);
  * Start a server listening at port 4000 locally
  * but use environment variable PORT on AWS Elastic Beanstalk if available.
  */
+// TODO: Try to refactor and fix nodemon TypeError in package.json.
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);
 //# sourceMappingURL=server.js.map

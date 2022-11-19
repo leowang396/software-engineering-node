@@ -6,7 +6,6 @@ import LikeDao from "../daos/LikeDao";
 import LikeControllerI from "../interfaces/LikeController";
 import User from "../models/users/User";
 import Tuit from "../models/tuits/Tuit";
-import TuitController from "./TuitController";
 import TuitDao from "../daos/TuitDao";
 
 /**
@@ -23,6 +22,7 @@ import TuitDao from "../daos/TuitDao";
  *     no londer likes a tuit</li>
  * </ul>
  * @property {LikeDao} likeDao Singleton DAO implementing likes CRUD operations
+ * @property {tuitDao} tuitDao Singleton DAO implementing tuits CRUD operations
  * @property {LikeController} LikeController Singleton controller implementing
  * RESTful Web service API
  */

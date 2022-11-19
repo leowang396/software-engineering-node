@@ -40,4 +40,6 @@ export default class TuitDao implements TuitDaoI{
             {$set: tuit});
     deleteTuit = async (tid: string): Promise<any> =>
         TuitModel.deleteOne({_id: tid});
+    updateLikes = async (tid, newStats) =>
+        TuitModel.updateOne({_id: tid}, {$set: {stats: newStats}});
 }

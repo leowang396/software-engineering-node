@@ -24,12 +24,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * @file Implements mongoose schema to CRUD documents in the likes collection
+ * @file Implements mongoose schema to CRUD documents in the dislikes collection
  */
 const mongoose_1 = __importStar(require("mongoose"));
-const LikeSchema = new mongoose_1.default.Schema({
+const DislikeSchema = new mongoose_1.default.Schema({
     tuit: { type: mongoose_1.Schema.Types.ObjectId, ref: "TuitModel" },
-    likedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
-}, { collection: "likes" });
-exports.default = LikeSchema;
-//# sourceMappingURL=LikeSchema.js.map
+    dislikedBy: { type: mongoose_1.Schema.Types.ObjectId, ref: "UserModel" },
+}, { collection: "dislikes" });
+exports.default = DislikeSchema;
+//# sourceMappingURL=DislikesSchema.js.map

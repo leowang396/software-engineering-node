@@ -75,7 +75,6 @@ class TuitController {
             let userId = req.params.uid === "me" && req.session['profile']
                 ? req.session['profile']._id
                 : req.params.uid;
-            console.log(req.body);
             // If uid === "me" and there's no logged-in user, return empty JSON without Mongo error.
             if (userId === "me") {
                 res.json({});

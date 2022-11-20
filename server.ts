@@ -54,6 +54,5 @@ AuthController(app);
  * Start a server listening at port 4000 locally
  * but use environment variable PORT on AWS Elastic Beanstalk if available.
  */
-// TODO: Try to refactor and fix nodemon TypeError in package.json.
 const PORT = 4000;
 app.listen(process.env.PORT || PORT);

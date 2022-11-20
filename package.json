@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "tsc --project ./",
     "start": "node dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc --project ./ && nodemon --exec npm run start"
+    "watch-node": "nodemon dist/server.js",
+    "watch-ts": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",

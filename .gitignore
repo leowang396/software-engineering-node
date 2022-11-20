@@ -1,9 +1,11 @@
+.env
 .idea
-node_modules
+coverage
 build
 data
+dist
+node_modules
 out
-coverage
 temp
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

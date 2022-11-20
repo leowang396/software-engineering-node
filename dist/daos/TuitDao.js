@@ -18,8 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const TuitModel_1 = __importDefault(require("../mongoose/tuits/TuitModel"));
 /**
- * @class TuitDao Implements Data Access Object managing data storage
- * of Users
+ * @class TuitDao Implements Data Access Object managing data storage of Tuit
  * @property {TuitDao} tuitDao Private single instance of TuitDao
  */
 class TuitDao {
@@ -44,7 +43,7 @@ class TuitDao {
             return TuitModel_1.default.updateOne({ _id: tid }, { $set: tuit });
         });
         this.deleteTuit = (tid) => __awaiter(this, void 0, void 0, function* () { return TuitModel_1.default.deleteOne({ _id: tid }); });
-        this.updateLikes = (tid, newStats) => __awaiter(this, void 0, void 0, function* () { return TuitModel_1.default.updateOne({ _id: tid }, { $set: { stats: newStats } }); });
+        this.updateStats = (tid, newStats) => __awaiter(this, void 0, void 0, function* () { return TuitModel_1.default.updateOne({ _id: tid }, { $set: { stats: newStats } }); });
     }
 }
 exports.default = TuitDao;

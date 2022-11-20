@@ -104,7 +104,6 @@ export default class TuitController implements TuitControllerI {
             ? req.session['profile']._id
             : req.params.uid;
 
-        console.log(req.body);
         // If uid === "me" and there's no logged-in user, return empty JSON without Mongo error.
         if (userId === "me") {
             res.json({});

@@ -38,20 +38,16 @@ export default class DislikeDao implements DislikeDaoI {
                     .exec()
             });
 
-    findAllTuitsDislikedByUser = async (uid: string): Promise<Tuit[]> =>
+    findAllTuitsDislikedByUser = async (uid: string): Promise<any[]> =>
         DislikeModel
             .find({dislikedBy: uid})
-            .
-            then(dislikes => {
-                let res = [];
-                for (const d of dislikes) {
-                    res.push(d.tuit)
+            .populate({
+                path: 'tuit',
+                populate: {
+                    path: 'postedBy'
                 }
-
-                return TuitModel
-                    .find({_id: {$in: res}})
-                    .exec()
-            });
+            })
+            .exec();
 
     findTuitDislikesCount = async (tid: string): Promise<number> =>
         DislikeModel

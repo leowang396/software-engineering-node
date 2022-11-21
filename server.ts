@@ -41,10 +41,11 @@ if (process.env.NODE_ENV == 'production') {
 }
 app.use(session(sess));
 
-app.get('/', (req: Request, res: Response) =>
-    res.send('<h1>App Loaded!</h1>'));
 const uri = `mongodb+srv://lwang369:${process.env.mongodbpw}@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(uri);
+
+app.get('/', (req: Request, res: Response) =>
+    res.send('<h1>App Loaded!</h1>'));
 
 UserController.getInstance(app);
 TuitController.getInstance(app);

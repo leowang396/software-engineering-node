@@ -67,11 +67,22 @@ export default class LikeController implements LikeControllerI {
      * @param {Request} req Represents request from client, including the path
      * parameter uid representing the user liked the tuits
      * @param {Response} res Represents response to client, including the
-     * body formatted as JSON arrays containing the tuit objects that were liked
+     * body formatted as JSON arrays containing the liked tuits populated with their sender
      */
-    findAllTuitsLikedByUser = (req: Request, res: Response) =>
-        LikeController.likeDao.findAllTuitsLikedByUser(req.params.uid)
-            .then((tuits: Tuit[]) => res.json(tuits));
+    findAllTuitsLikedByUser = (req: any, res: any) => {
+        const uid = req.params.uid;
+        const profile = req.session['profile'];
+        const userId = uid === "me" && profile
+            ? profile._id
+            : uid;
+
+        LikeController.likeDao.findAllTuitsLikedByUser(userId)
+            .then(populatedLikes => {
+                const likesNonNullTuits = populatedLikes.filter(like => like.tuit);
+                const tuitsFromLikes = likesNonNullTuits.map(like => like.tuit);
+                res.json(tuitsFromLikes);
+            });
+    }
 
     /**
      * Counts all users that liked a tuit from the database
@@ -92,7 +103,7 @@ export default class LikeController implements LikeControllerI {
      * body formatted as JSON containing the new likes that was inserted in the
      * database
      */
-    userTogglesTuitLikes = async (req, res) => {
+    userTogglesTuitLikes = async (req: any, res: any) => {
         const uid = req.params.uid;
         const tid = req.params.tid;
         const profile = req.session['profile'];

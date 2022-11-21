@@ -65,11 +65,22 @@ export default class DislikeController implements DislikeControllerI {
      * @param {Request} req Represents request from client, including the path
      * parameter uid representing the user disliked the tuits
      * @param {Response} res Represents response to client, including the
-     * body formatted as JSON arrays containing the tuit objects that were disliked
+     * body formatted as JSON arrays containing the disliked tuit objects and their sender
      */
-    findAllTuitsDislikedByUser = (req: Request, res: Response) =>
-        DislikeController.dislikeDao.findAllTuitsDislikedByUser(req.params.uid)
-            .then((tuits: Tuit[]) => res.json(tuits));
+    findAllTuitsDislikedByUser = (req: any, res: any) => {
+        const uid = req.params.uid;
+        const profile = req.session['profile'];
+        const userId = uid === "me" && profile
+            ? profile._id
+            : uid;
+
+        DislikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
+            .then(populatedDislikes => {
+                const dislikesNonNullTuits = populatedDislikes.filter(dislike => dislike.tuit);
+                const tuitsFromDislikes = dislikesNonNullTuits.map(dislike => dislike.tuit);
+                res.json(tuitsFromDislikes);
+            });
+    }
 
     /**
      * Counts all users that disliked a tuit from the database
@@ -89,7 +100,7 @@ export default class DislikeController implements DislikeControllerI {
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON containing the new dislike that was inserted in the database
      */
-    userTogglesTuitDislikes = async (req, res) => {
+    userTogglesTuitDislikes = async (req: any, res: any) => {
         const uid = req.params.uid;
         const tid = req.params.tid;
         const profile = req.session['profile'];

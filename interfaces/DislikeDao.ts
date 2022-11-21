@@ -7,7 +7,7 @@ import Tuit from "../models/tuits/Tuit";
  */
 export default interface DislikeDao {
     findAllUsersThatDislikedTuit (tid: string): Promise<User[]>;
-    findAllTuitsDislikedByUser (uid: string): Promise<Tuit[]>;
+    findAllTuitsDislikedByUser (uid: string): Promise<any[]>;
     findTuitDislikesCount (tid: string): Promise<number>;
     userDislikesTuit (tid: string, uid: string): Promise<any>;
     userUndislikesTuit (tid: string, uid: string): Promise<any>;

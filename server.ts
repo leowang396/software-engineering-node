@@ -2,7 +2,12 @@
  * @file Implements an Express Node HTTP server.
  */
 import express, {Request, Response} from 'express';
+const app = express();
 import mongoose from "mongoose";
+const session = require('express-session');
+const cors = require('cors')
+require('dotenv').config();
+
 import AuthController from "./controllers/AuthController";
 import BookmarkController from "./controllers/BookmarkController";
 import DislikeController from "./controllers/DislikeController";
@@ -11,9 +16,7 @@ import LikeController from "./controllers/LikeController";
 import MessageController from "./controllers/MessageController";
 import TuitController from "./controllers/TuitController";
 import UserController from "./controllers/UserController";
-const session = require('express-session');
-const cors = require('cors')
-const app = express();
+
 // Sets the Access-Control-Allow-Origin response header to the req origin.
 const corsConfig = {
     credentials: true,
@@ -41,7 +44,8 @@ if (process.env.NODE_ENV == 'production') {
 }
 app.use(session(sess));
 
-const uri = `mongodb+srv://lwang369:${process.env.mongodbpw}@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.mongodbuser}:${process.env.mongodbpw}`
+    + `@cluster0.xwyngvl.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(uri);
 
 app.get('/', (req: Request, res: Response) =>

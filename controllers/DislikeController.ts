@@ -74,12 +74,17 @@ export default class DislikeController implements DislikeControllerI {
             ? profile._id
             : uid;
 
-        DislikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
-            .then(populatedDislikes => {
-                const dislikesNonNullTuits = populatedDislikes.filter(dislike => dislike.tuit);
-                const tuitsFromDislikes = dislikesNonNullTuits.map(dislike => dislike.tuit);
-                res.json(tuitsFromDislikes);
-            });
+        if (userId === "me") {
+            res.json({});
+        }
+        else {
+            DislikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
+                .then(populatedDislikes => {
+                    const dislikesNonNullTuits = populatedDislikes.filter(dislike => dislike.tuit);
+                    const tuitsFromDislikes = dislikesNonNullTuits.map(dislike => dislike.tuit);
+                    res.json(tuitsFromDislikes);
+                });
+        }
     }
 
     /**
